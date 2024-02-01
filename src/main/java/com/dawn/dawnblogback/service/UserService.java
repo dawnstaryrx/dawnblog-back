@@ -1,5 +1,9 @@
 package com.dawn.dawnblogback.service;
 
+import com.dawn.dawnblogback.pojo.Result;
+import com.dawn.dawnblogback.pojo.User;
+import com.dawn.dawnblogback.pojo.UserDTO;
+
 /**
  * ClassName: UserService
  * Package: com.dawn.dawnblogback.service
@@ -10,4 +14,9 @@ package com.dawn.dawnblogback.service;
  * @Version 1.0
  */
 public interface UserService {
+
+
+    void register(UserDTO userDTO);
+
+    User findByUserEmail(String email);
 }
