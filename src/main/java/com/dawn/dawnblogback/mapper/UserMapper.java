@@ -20,4 +20,6 @@ public interface UserMapper {
     void insertUser(User user);
     @Select("select * from user where email = #{email}")
     User findByUserEmail(String email);
+    @Select("select * from user where id = #{id}")
+    User findByUserId(Integer id);
 }

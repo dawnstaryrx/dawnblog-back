@@ -19,4 +19,6 @@ public interface UserService {
     void register(UserDTO userDTO);
 
     User findByUserEmail(String email);
+
+    User findByUserId(Integer id);
 }

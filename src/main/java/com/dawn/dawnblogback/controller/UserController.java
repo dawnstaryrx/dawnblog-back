@@ -10,6 +10,7 @@ import com.dawn.dawnblogback.service.UserService;
 import com.dawn.dawnblogback.util.JwtUtil;
 import com.dawn.dawnblogback.util.Md5Util;
 import com.dawn.dawnblogback.util.RandomUtil;
+import com.dawn.dawnblogback.util.ThreadLocalUtil;
 import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -39,6 +40,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 发送验证码
+     * @param email 路径参数
+     * @return      0
+     */
     @PostMapping("/code")
     public Result<String> sendRegisterCode(@RequestParam @Email String email){
         EmailDTO emailDTO = new EmailDTO();
@@ -94,5 +100,19 @@ public class UserController {
         } else {
             return Result.error("用户未注册！");
         }
+    }
+
+    @GetMapping("/user/info")
+    public Result<User> getUserInfo(){
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer id = (Integer)map.get("id");
+        User user = userService.findByUserId(id);
+        return Result.success(user);
+    }
+
+    @PutMapping("/user/update")
+    public Result updateUserInfo(){
+
+        return Result.success();
     }
 }
