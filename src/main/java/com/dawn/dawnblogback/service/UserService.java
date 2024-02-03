@@ -21,4 +21,10 @@ public interface UserService {
     User findByUserEmail(String email);
 
     User findByUserId(Integer id);
+
+    void updateUsername(String name);
+
+    void updateAvatar(String avatarUrl);
+
+    void updatePwd(Integer id, String newPwd);
 }

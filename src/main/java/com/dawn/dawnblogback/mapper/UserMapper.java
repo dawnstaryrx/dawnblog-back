@@ -4,6 +4,9 @@ import com.dawn.dawnblogback.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.time.LocalDateTime;
 
 /**
  * ClassName: UserMapper
@@ -22,4 +25,10 @@ public interface UserMapper {
     User findByUserEmail(String email);
     @Select("select * from user where id = #{id}")
     User findByUserId(Integer id);
+    @Update("update user set username = #{name}, update_time = #{time} where id = #{id}")
+    void updateUsername(Integer id, String name, LocalDateTime time);
+    @Update("update user set avatar = #{avatarUrl}, update_time = now() where id = #{id}")
+    void updateAvatarUrl(String avatarUrl, Integer id);
+    @Update("update user set password = #{newPwd} where id = #{id}")
+    void updatePwd(String newPwd, Integer id);
 }
