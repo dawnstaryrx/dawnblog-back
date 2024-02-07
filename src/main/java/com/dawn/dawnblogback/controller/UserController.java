@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,6 +37,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @Slf4j
+
 public class UserController {
     @Autowired
     private EmailService emailService;
@@ -45,12 +47,15 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 发送验证码
+     * 找回密码发送验证码
      * @param email 路径参数
      * @return      0
      */
     @PostMapping("/registerCode")
     public Result sendRegisterCode(@RequestParam @Email String email){
+        if(Objects.equals(email, "") || email == null) {
+            return Result.error("请输入邮箱！");
+        }
         EmailDTO emailDTO = new EmailDTO();
         // 设置验证码
         String code =  RandomUtil.getVerifyCode();
@@ -69,6 +74,15 @@ public class UserController {
     @PostMapping("/user/register")
     public Result register(@RequestBody @Validated UserDTO userDTO){
         ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+        if(userDTO.getEmail().length() ==0 ){
+            return Result.error("请输入邮箱！");
+        }
+        if(userDTO.getCode().length() !=6 ){
+            return Result.error("请输入6位验证码！");
+        }
+        if(userDTO.getPassword().length() ==0 ){
+            return Result.error("请输入密码！");
+        }
         if (!userDTO.getCode().equals(operations.get(userDTO.getEmail()))){
             return Result.error("注册失败！");
         }
@@ -79,7 +93,7 @@ public class UserController {
             userDTO.setPassword(Md5Util.getMD5String(userDTO.getPassword()));
             userService.register(userDTO);
             operations.getOperations().delete(userDTO.getEmail());
-            return Result.success();
+            return Result.success("注册成功！");
         } else {
             // 用户名被占用
             return Result.error("用户名被占用！");
@@ -149,6 +163,9 @@ public class UserController {
 
     @PostMapping("/loginCode")
     public Result sendLoginCode(@RequestParam @Email String email){
+        if(email == null || email.equals("")){
+            return Result.error("请输入邮箱！");
+        }
         EmailDTO emailDTO = new EmailDTO();
         // 设置验证码
         String code =  RandomUtil.getLoginCode();
@@ -174,7 +191,7 @@ public class UserController {
             ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
             String sendCode = operations.get(email);
             if (sendCode == null)
-                return Result.error("邮箱输入错误！");
+                return Result.error("验证码错误！");
             if(sendCode.equals(code)){
                 // 登录成功
                 Map<String, Object> claims = new HashMap<>();
@@ -247,4 +264,5 @@ public class UserController {
         operations.getOperations().delete(token);
         return Result.success();
     }
+
 }

@@ -27,6 +27,8 @@ public class WebConfig implements WebMvcConfigurer {
                 "/user/loginByPassword","/user/loginByCode",
                 "/user/register",
                 "/registerCode", "/forgetCode", "/loginCode",
-                "/createImageCode", "/user/retrieve");
+                "/createImageCode", "/user/retrieve",
+                "/getInfo"
+        );
     }
 }

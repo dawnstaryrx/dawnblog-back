@@ -23,7 +23,7 @@ public class KaptchaConfig {
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         Properties properties = new Properties();
         // 图片宽
-        properties.setProperty("kaptcha.image.width", "180");
+        properties.setProperty("kaptcha.image.width", "120");
         // 图片高
         properties.setProperty("kaptcha.image.height", "50");
         // 图片边框
