@@ -1,8 +1,7 @@
 package com.dawn.dawnblogback.service;
 
-import com.dawn.dawnblogback.pojo.Result;
 import com.dawn.dawnblogback.pojo.User;
-import com.dawn.dawnblogback.pojo.UserDTO;
+import com.dawn.dawnblogback.pojo.dto.UserDTO;
 
 /**
  * ClassName: UserService

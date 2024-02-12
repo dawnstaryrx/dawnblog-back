@@ -1,6 +1,6 @@
 package com.dawn.dawnblogback.service.impl;
 
-import com.dawn.dawnblogback.pojo.EmailDTO;
+import com.dawn.dawnblogback.pojo.dto.EmailDTO;
 import com.dawn.dawnblogback.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

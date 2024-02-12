@@ -1,10 +1,10 @@
 package com.dawn.dawnblogback.controller;
 
 
-import com.dawn.dawnblogback.pojo.EmailDTO;
+import com.dawn.dawnblogback.pojo.dto.EmailDTO;
 import com.dawn.dawnblogback.pojo.Result;
 import com.dawn.dawnblogback.pojo.User;
-import com.dawn.dawnblogback.pojo.UserDTO;
+import com.dawn.dawnblogback.pojo.dto.UserDTO;
 import com.dawn.dawnblogback.service.EmailService;
 import com.dawn.dawnblogback.service.UserService;
 import com.dawn.dawnblogback.util.JwtUtil;

@@ -1,4 +1,4 @@
-package com.dawn.dawnblogback.pojo;
+package com.dawn.dawnblogback.pojo.dto;
 
 import jakarta.validation.constraints.Email;
 import lombok.Data;

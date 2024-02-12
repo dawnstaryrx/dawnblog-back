@@ -3,7 +3,7 @@ package com.dawn.dawnblogback.service.impl;
 
 import com.dawn.dawnblogback.mapper.UserMapper;
 import com.dawn.dawnblogback.pojo.User;
-import com.dawn.dawnblogback.pojo.UserDTO;
+import com.dawn.dawnblogback.pojo.dto.UserDTO;
 import com.dawn.dawnblogback.service.UserService;
 import com.dawn.dawnblogback.util.Md5Util;
 import com.dawn.dawnblogback.util.ThreadLocalUtil;

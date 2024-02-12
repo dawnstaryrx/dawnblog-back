@@ -1,4 +1,4 @@
-package com.dawn.dawnblogback.pojo;
+package com.dawn.dawnblogback.pojo.dto;
 
 import lombok.Data;
 

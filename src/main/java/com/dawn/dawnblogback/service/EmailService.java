@@ -1,6 +1,6 @@
 package com.dawn.dawnblogback.service;
 
-import com.dawn.dawnblogback.pojo.EmailDTO;
+import com.dawn.dawnblogback.pojo.dto.EmailDTO;
 
 /**
  * ClassName: EmailService
