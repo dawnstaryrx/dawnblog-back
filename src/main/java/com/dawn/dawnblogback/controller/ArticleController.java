@@ -1,6 +1,12 @@
 package com.dawn.dawnblogback.controller;
 
+import com.dawn.dawnblogback.pojo.Article;
+import com.dawn.dawnblogback.pojo.Result;
+import com.dawn.dawnblogback.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -18,11 +24,14 @@ import java.util.Map;
 @RestController
 public class ArticleController {
 
-    @GetMapping("/getInfo")
-    public Map<String, String> getInfo(){
-        Map<String , String> bot1 = new HashMap<>();
-        bot1.put("name", "tiger");
-        bot1.put("num", "2");
-        return bot1;
+    @Autowired
+    private ArticleService articleService;
+
+    @PostMapping("/article")
+    public Result addArticle(@RequestBody Article article){
+        articleService.addArticle(article);
+        return Result.success();
     }
+
+
 }

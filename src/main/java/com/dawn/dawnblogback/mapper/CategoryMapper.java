@@ -1,10 +1,7 @@
 package com.dawn.dawnblogback.mapper;
 
 import com.dawn.dawnblogback.pojo.Category;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -30,4 +27,9 @@ public interface CategoryMapper {
 
     @Delete("delete from category where id = #{id}")
     void delete(Integer id);
+
+    @Update("update category set state = #{state} where id = #{id}")
+    void examine(Integer id, Integer state);
+    @Select("select * from category where state = 2")
+    List<Category> listSuccess();
 }

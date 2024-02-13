@@ -25,6 +25,17 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
+    public List<Category> listSuccess() {
+        List<Category> result = categoryMapper.listSuccess();
+        return result;
+    }
+
+    @Override
+    public void examine(Integer id, Integer state) {
+        categoryMapper.examine(id, state);
+    }
+
+    @Override
     public void delete(Integer id) {
         categoryMapper.delete(id);
     }

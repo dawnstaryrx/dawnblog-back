@@ -22,4 +22,8 @@ public interface CategoryService {
     Category detail(Integer id);
 
     void delete(Integer id);
+
+    void examine(Integer id, Integer state);
+
+    List<Category> listSuccess();
 }
