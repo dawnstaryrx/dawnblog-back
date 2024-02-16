@@ -26,4 +26,10 @@ public interface CategoryService {
     void examine(Integer id, Integer state);
 
     List<Category> listSuccess();
+
+    Category findByCategoryName(String categoryName);
+
+    List<Category> listWait();
+
+    void update(Integer id, String categoryName, Integer state);
 }

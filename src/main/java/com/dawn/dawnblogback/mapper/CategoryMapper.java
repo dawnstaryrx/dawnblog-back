@@ -30,6 +30,16 @@ public interface CategoryMapper {
 
     @Update("update category set state = #{state} where id = #{id}")
     void examine(Integer id, Integer state);
+
     @Select("select * from category where state = 2")
     List<Category> listSuccess();
+
+    @Select("select * from category where category_name = #{categoryName}")
+    Category findByCategoryName(String categoryName);
+
+    @Select("select * from category where state = 1")
+    List<Category> listWait();
+
+    @Update("update category set category_name = #{categoryName}, state = #{state} where id = #{id}")
+    void update(Integer id, String categoryName, Integer state);
 }

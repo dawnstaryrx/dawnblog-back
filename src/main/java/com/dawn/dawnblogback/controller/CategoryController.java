@@ -3,10 +3,13 @@ package com.dawn.dawnblogback.controller;
 import com.dawn.dawnblogback.pojo.Category;
 import com.dawn.dawnblogback.pojo.Result;
 import com.dawn.dawnblogback.service.CategoryService;
+import com.dawn.dawnblogback.service.UserService;
+import com.dawn.dawnblogback.util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName: CategoryController
@@ -21,6 +24,8 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserService userService;
 
     // 新增类别
     @PostMapping("/category")
@@ -28,7 +33,11 @@ public class CategoryController {
         if (categoryName == null){
             return Result.error("类名为空！");
         }
-        // TODO 查找是否重复
+        // 根据类名查找是否重复
+        Category category = categoryService.findByCategoryName(categoryName);
+        if(category!=null){
+            return Result.error("类名重复！");
+        }
         categoryService.addCategory(categoryName);
         return Result.success();
     }
@@ -40,10 +49,28 @@ public class CategoryController {
         return Result.success(result);
     }
 
+    // 展示审批成功的类别
     @GetMapping("/category/success")
     public Result<List<Category>> listSuccess(){
         List<Category> result = categoryService.listSuccess();
         return Result.success(result);
+    }
+
+    // 展示审批中的类别
+    @GetMapping("/category/wait")
+    public Result<List<Category>> listWait(){
+        List<Category> result = categoryService.listWait();
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
+        // 权限！
+        // 根据id获取用户权限级别
+        Integer role = userService.findByUserId(userId).getRole();
+        if (role == 2){
+            return Result.success(result);
+        }else{
+            return Result.error("！！！请立刻离开！！！");
+        }
+
     }
 
     // 根据id查询类别
@@ -64,6 +91,13 @@ public class CategoryController {
     @PatchMapping("/category/examine")
     public Result examine( @RequestParam Integer id, Integer state){
         categoryService.examine(id , state);
+        return Result.success();
+    }
+
+    // TODO 更新分类
+    @PatchMapping("/category/update")
+    public Result update(@RequestParam Integer id, String categoryName, Integer state){
+        categoryService.update(id, categoryName, state);
         return Result.success();
     }
 

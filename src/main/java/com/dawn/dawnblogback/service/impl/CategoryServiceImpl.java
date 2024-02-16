@@ -1,8 +1,10 @@
 package com.dawn.dawnblogback.service.impl;
 
 import com.dawn.dawnblogback.mapper.CategoryMapper;
+import com.dawn.dawnblogback.mapper.UserMapper;
 import com.dawn.dawnblogback.pojo.Category;
 import com.dawn.dawnblogback.service.CategoryService;
+import com.dawn.dawnblogback.service.UserService;
 import com.dawn.dawnblogback.util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,23 @@ import java.util.Map;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Override
+    public void update(Integer id, String categoryName, Integer state) {
+        categoryMapper.update(id, categoryName, state);
+    }
+
+    @Override
+    public List<Category> listWait() {
+        List<Category> result = categoryMapper.listWait();
+        return result;
+    }
+
+    @Override
+    public Category findByCategoryName(String categoryName) {
+        Category category = categoryMapper.findByCategoryName(categoryName);
+        return category;
+    }
 
     @Override
     public List<Category> listSuccess() {
