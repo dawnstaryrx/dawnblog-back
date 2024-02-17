@@ -45,6 +45,12 @@ public class CategoryController {
     // 展示类别列表
     @GetMapping("/category")
     public Result<List<Category>> list(){
+//        Map<String, Object> map = ThreadLocalUtil.get();
+//        Integer userId = (Integer) map.get("id");
+//        Integer role = userService.findByUserId(userId).getRole();
+//        if (role != 2){
+//            return Result.error("！！！请立刻离开！！！");
+//        }
         List<Category> result = categoryService.list();
         return Result.success(result);
     }
@@ -83,6 +89,12 @@ public class CategoryController {
     // 根据id删除类别
     @DeleteMapping("/category")
     public Result delete( @RequestParam Integer id){
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
+        Integer role = userService.findByUserId(userId).getRole();
+        if (role != 2){
+            return Result.error("！！！请立刻离开！！！");
+        }
         categoryService.delete(id);
         return Result.success();
     }
@@ -94,9 +106,15 @@ public class CategoryController {
         return Result.success();
     }
 
-    // TODO 更新分类
+    //  更新分类
     @PatchMapping("/category/update")
     public Result update(@RequestParam Integer id, String categoryName, Integer state){
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
+        Integer role = userService.findByUserId(userId).getRole();
+        if (role != 2){
+            return Result.error("！！！请立刻离开！！！");
+        }
         categoryService.update(id, categoryName, state);
         return Result.success();
     }
