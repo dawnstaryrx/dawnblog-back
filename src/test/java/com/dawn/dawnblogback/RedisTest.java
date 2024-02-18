@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,8 +22,11 @@ import java.util.concurrent.TimeUnit;
 @SpringBootTest
 public class RedisTest {
 
-    @Autowired
+    @Autowired(required = false)
     private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired(required = false)
+    private JavaMailSender mailSender;
 
     @Test
     public void testSet(){
@@ -35,5 +40,18 @@ public class RedisTest {
         ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
         System.out.println(operations.get("username"));
         System.out.println(operations.get("id"));
+    }
+    @Test
+    public void EmailTest(){
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+        //主题
+        mailMessage.setSubject("Springboot发送邮件");
+        //内容
+        mailMessage.setText("Hello World！");
+
+        mailMessage.setTo("1650396516@qq.com");
+        mailMessage.setFrom("dawnstarblog@126.com");
+        mailSender.send(mailMessage);
     }
 }

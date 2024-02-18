@@ -18,7 +18,6 @@ public class CorsConfig{
         /*是否允许请求带有验证信息*/
         corsConfiguration.setAllowCredentials(true);
         /*允许访问的客户端域名*/
-//        corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedOriginPattern("*");
         /*允许服务端访问的客户端请求头*/
         corsConfiguration.addAllowedHeader("*");

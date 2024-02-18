@@ -64,11 +64,17 @@ public class UserController {
         emailDTO.setEmail(email);
         emailDTO.setTitle("东方既白博客系统——注册服务");
         emailDTO.setContent(content);
-        emailService.sendMsg(emailDTO);
-        // 往Redis中存储一个键值对
-        ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
-        operations.set(emailDTO.getEmail(), code, 300, TimeUnit.SECONDS);
-        return Result.success();
+        // 查询用户
+        User user = userService.findByUserEmail(email);
+        if (user == null){
+            // 没被注册
+            emailService.sendMsg(emailDTO);
+            // 往Redis中存储一个键值对
+            ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+            operations.set(emailDTO.getEmail(), code, 300, TimeUnit.SECONDS);
+            return Result.success();
+        }
+        return Result.error("已被注册！");
     }
 
     @PostMapping("/user/register")
@@ -86,18 +92,11 @@ public class UserController {
         if (!userDTO.getCode().equals(operations.get(userDTO.getEmail()))){
             return Result.error("注册失败！");
         }
-        // 查询用户
-        User user = userService.findByUserEmail(userDTO.getEmail());
-        if (user == null){
-            // 用户名没有被占用，注册
-            userDTO.setPassword(Md5Util.getMD5String(userDTO.getPassword()));
-            userService.register(userDTO);
-            operations.getOperations().delete(userDTO.getEmail());
-            return Result.success("注册成功！");
-        } else {
-            // 用户名被占用
-            return Result.error("用户名被占用！");
-        }
+
+        userDTO.setPassword(Md5Util.getMD5String(userDTO.getPassword()));
+        userService.register(userDTO);
+        operations.getOperations().delete(userDTO.getEmail());
+        return Result.success("注册成功！");
     }
 
     @PostMapping("/forgetCode")
