@@ -1,6 +1,7 @@
 package com.dawn.dawnblogback.service;
 
 import com.dawn.dawnblogback.pojo.Article;
+import com.dawn.dawnblogback.pojo.PageBean;
 
 /**
  * ClassName: ArticleService
@@ -13,4 +14,12 @@ import com.dawn.dawnblogback.pojo.Article;
  */
 public interface ArticleService {
     void addArticle(Article article);
+
+    void updateArticle(Article article);
+
+    Article getArticle(Integer id);
+
+    void deleteArticle(Integer id);
+
+    PageBean<Article> list(Integer pageNum, Integer pageSize, String categoryId, String state);
 }

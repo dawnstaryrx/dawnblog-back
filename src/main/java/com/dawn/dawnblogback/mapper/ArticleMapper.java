@@ -1,8 +1,9 @@
 package com.dawn.dawnblogback.mapper;
 
 import com.dawn.dawnblogback.pojo.Article;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 /**
  * ClassName: ArticleMapper
@@ -18,4 +19,17 @@ public interface ArticleMapper {
     @Insert("insert into article(author, title, content, category_id, state, create_time, update_time)" +
             " values(#{author}, #{title}, #{content}, #{categoryId}, #{state}, NOW(), NOW())")
     void add(Article article);
+
+    @Update("update article set title = #{title}, category_id = #{categoryId}," +
+            "update_time = NOW(), content = #{content}, state = #{state} where id = #{id}")
+    void update(Article article);
+
+    @Select("select * from article where id = #{id}")
+    Article getArticle(Integer id);
+
+    @Delete("delete from article where id = #{id}")
+    void delete(Integer id);
+
+//    List<Article> list(Integer userId, String categoryId, String state);
+    List<Article> list(String categoryId, String state);
 }
