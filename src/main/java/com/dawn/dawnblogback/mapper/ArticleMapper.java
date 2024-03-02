@@ -32,4 +32,7 @@ public interface ArticleMapper {
 
 //    List<Article> list(Integer userId, String categoryId, String state);
     List<Article> list(String categoryId, String state);
+
+    @Select("select * from article where author = #{userId}")
+    List<Article> myList(Integer userId);
 }

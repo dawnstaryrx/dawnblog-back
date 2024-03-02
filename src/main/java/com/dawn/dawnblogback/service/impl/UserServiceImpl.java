@@ -51,7 +51,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUserId(Integer id) {
+        System.out.println("service" + id);
         User user = userMapper.findByUserId(id);
+        System.out.println(user.toString());
         return user;
     }
 

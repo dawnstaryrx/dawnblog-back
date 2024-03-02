@@ -220,6 +220,12 @@ public class UserController {
         return Result.success(user);
     }
 
+    @GetMapping("/user/{id}")
+    public Result<User> getOtherUserInfo(@PathVariable Integer id){
+        User user = userService.findByUserId(id);
+        return Result.success(user);
+    }
+
     // 改用户名
     @PatchMapping("/user/updateName")
     public Result updateUsername(@RequestParam String name){

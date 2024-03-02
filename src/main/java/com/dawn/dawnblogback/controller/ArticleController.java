@@ -40,9 +40,8 @@ public class ArticleController {
     }
 
     // 获取文章详情
-    @GetMapping("/articleDetail")
-    public Result<Article> getArticle(@RequestParam Integer id){
-
+    @GetMapping("/article/{id}")
+    public Result<Article> getArticle(@PathVariable("id") Integer id){
         return Result.success(articleService.getArticle(id));
     }
 
@@ -59,6 +58,13 @@ public class ArticleController {
                                           @RequestParam(required = false) String categoryId,
                                           @RequestParam(required = false) String state){
         PageBean<Article> pageBean = articleService.list(pageNum, pageSize, categoryId, state);
+        return Result.success(pageBean);
+    }
+
+    // 获取文章列表
+    @GetMapping("/article/my")
+    public Result<PageBean<Article>> myList(Integer pageNum, Integer pageSize){
+        PageBean<Article> pageBean = articleService.myList(pageNum, pageSize);
         return Result.success(pageBean);
     }
 
