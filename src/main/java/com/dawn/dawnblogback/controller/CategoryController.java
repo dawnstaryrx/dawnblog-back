@@ -67,7 +67,7 @@ public class CategoryController {
     public Result<List<Category>> listWait(){
         List<Category> result = categoryService.listWait();
         Map<String, Object> map = ThreadLocalUtil.get();
-        Integer userId = (Integer) map.get("id");
+        Integer userId = (Integer)map.get("id");
         // 权限！
         // 根据id获取用户权限级别
         Integer role = userService.findByUserId(userId).getRole();
@@ -90,7 +90,7 @@ public class CategoryController {
     @DeleteMapping("/category")
     public Result delete( @RequestParam Integer id){
         Map<String, Object> map = ThreadLocalUtil.get();
-        Integer userId = (Integer) map.get("id");
+        Integer userId = (Integer)map.get("id");
         Integer role = userService.findByUserId(userId).getRole();
         if (role != 2){
             return Result.error("！！！请立刻离开！！！");
@@ -110,7 +110,7 @@ public class CategoryController {
     @PatchMapping("/category/update")
     public Result update(@RequestParam Integer id, String categoryName, Integer state){
         Map<String, Object> map = ThreadLocalUtil.get();
-        Integer userId = (Integer) map.get("id");
+        Integer userId = (Integer)map.get("id");
         Integer role = userService.findByUserId(userId).getRole();
         if (role != 2){
             return Result.error("！！！请立刻离开！！！");

@@ -21,7 +21,7 @@ public interface UserService {
 
     User findByUserId(Integer id);
 
-    void updateUsername(String name);
+    void updateUsername(String name, String introduction);
 
     void updateAvatar(String avatarUrl);
 

@@ -37,7 +37,6 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @Slf4j
-
 public class UserController {
     @Autowired
     private EmailService emailService;
@@ -226,10 +225,10 @@ public class UserController {
         return Result.success(user);
     }
 
-    // 改用户名
+    // 改用户名和自我介绍
     @PatchMapping("/user/updateName")
-    public Result updateUsername(@RequestParam String name){
-        userService.updateUsername(name);
+    public Result updateUsername(@RequestParam String name, String introduction){
+        userService.updateUsername(name, introduction);
         return Result.success();
     }
 
@@ -269,5 +268,4 @@ public class UserController {
         operations.getOperations().delete(token);
         return Result.success();
     }
-
 }

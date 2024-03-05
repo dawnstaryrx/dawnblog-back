@@ -42,11 +42,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUsername(String name) {
+    public void updateUsername(String name, String introduction) {
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer id = (Integer)map.get("id");
         LocalDateTime time = LocalDateTime.now();
-        userMapper.updateUsername(id, name, time);
+        userMapper.updateUsername(id, name, introduction,time);
     }
 
     @Override

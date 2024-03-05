@@ -26,3 +26,10 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 
+tecent:
+  cos:
+    file:
+      region: "ap-beijing"
+      secretId: "AKIDseFeqpbAXhf3GH6i9NPErIXZP3VldJm3"
+      secretKey: "A7sRnyymV3RfiaHoALMCrLfomZCex63o"
+      bucketName: "dawnstar-avatar-1309734834"
