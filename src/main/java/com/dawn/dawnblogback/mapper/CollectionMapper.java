@@ -22,4 +22,7 @@ public interface CollectionMapper {
 
     @Select("select count(*) from collection where article_id = #{articleId} and user_id = #{userId}")
     Integer isCollected(Integer articleId, Integer userId);
+
+    @Delete("delete from collection where article_id = #{articleId}")
+    void deleteByArticleId(Integer articleId);
 }

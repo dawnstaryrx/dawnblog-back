@@ -23,6 +23,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -272,9 +273,23 @@ public class UserController {
         return Result.success();
     }
 
+    // 根据userId查询该用户文章数
     @GetMapping("/article/num")
     public Result getArticleNumByUserId(@RequestParam Integer id){
         Integer num = articleService.getArticleNumByUserId(id);
         return Result.success(num);
+    }
+
+    // 用户列表
+    @GetMapping("/user/list")
+    public Result<List<User>> getUserList(){
+        return Result.success(userService.getUserList());
+    }
+
+    // 改用户权限
+    @PatchMapping("/user/role")
+    public Result changeUserRole(@RequestParam Integer id, Integer role){
+        userService.changeUserRole(id, role);
+        return Result.success();
     }
 }

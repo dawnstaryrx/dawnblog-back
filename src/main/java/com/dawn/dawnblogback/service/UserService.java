@@ -3,6 +3,8 @@ package com.dawn.dawnblogback.service;
 import com.dawn.dawnblogback.pojo.User;
 import com.dawn.dawnblogback.pojo.dto.UserDTO;
 
+import java.util.List;
+
 /**
  * ClassName: UserService
  * Package: com.dawn.dawnblogback.service
@@ -26,4 +28,16 @@ public interface UserService {
     void updateAvatar(String avatarUrl);
 
     void updatePwd(Integer id, String newPwd);
+
+    void haveFan(Integer id);
+
+    void haveFollow(Integer id);
+
+    void removeFan(Integer id);
+
+    void removeFollow(Integer id);
+
+    List<User> getUserList();
+
+    void changeUserRole(Integer id, Integer role);
 }

@@ -12,4 +12,6 @@ public interface CollectionService {
     List<Collection> getList(Integer userId);
 
     Integer isCollected(Integer articleId, Integer userId);
+
+    void whenDeleteArticle(Integer articleId);
 }

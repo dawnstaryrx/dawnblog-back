@@ -4,6 +4,7 @@ import com.dawn.dawnblogback.mapper.ArticleMapper;
 import com.dawn.dawnblogback.pojo.Article;
 import com.dawn.dawnblogback.pojo.PageBean;
 import com.dawn.dawnblogback.service.ArticleService;
+import com.dawn.dawnblogback.service.CollectionService;
 import com.dawn.dawnblogback.util.ThreadLocalUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -26,6 +27,8 @@ import java.util.Map;
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private CollectionService collectionService;
 
     @Override
     public void addArticle(Article article) {
@@ -38,14 +41,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public PageBean<Article> myList(Integer pageNum, Integer pageSize, String state) {
+    public PageBean<Article> myList(Integer pageNum, Integer pageSize, String state, Integer userId) {
         // 1. 创建PageBean对象
         PageBean<Article> pageBean = new PageBean<>();
         // 2. 开启分页查询 PageHelper
         PageHelper.startPage(pageNum, pageSize);
         // 3. 调用mapper
-        Map<String, Object> map = ThreadLocalUtil.get();
-        Integer userId = (Integer) map.get("id");
         List<Article> articles = articleMapper.myList(userId, state);
         // page中提供了方法，可以获取PageHelper分页查询后，得到的总记录数和当前页数据
         Page<Article> p = (Page<Article>) articles;
@@ -77,6 +78,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void deleteArticle(Integer id) {
         articleMapper.delete(id);
+        collectionService.whenDeleteArticle(id);
     }
 
     @Override

@@ -64,8 +64,9 @@ public class ArticleController {
     // 获取文章列表
     @GetMapping("/article/my")
     public Result<PageBean<Article>> myList(Integer pageNum, Integer pageSize,
-                                            @RequestParam(required = false) String state){
-        PageBean<Article> pageBean = articleService.myList(pageNum, pageSize, state);
+                                            @RequestParam(required = false) String state,
+                                            Integer userId){
+        PageBean<Article> pageBean = articleService.myList(pageNum, pageSize, state, userId);
         return Result.success(pageBean);
     }
 

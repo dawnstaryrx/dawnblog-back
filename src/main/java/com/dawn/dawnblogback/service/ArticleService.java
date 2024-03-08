@@ -23,7 +23,7 @@ public interface ArticleService {
 
     PageBean<Article> list(Integer pageNum, Integer pageSize, String categoryId, String state);
 
-    PageBean<Article> myList(Integer pageNum, Integer pageSize, String state);
+    PageBean<Article> myList(Integer pageNum, Integer pageSize, String state, Integer userId);
 
     Integer getArticleNumByUserId(Integer id);
 }

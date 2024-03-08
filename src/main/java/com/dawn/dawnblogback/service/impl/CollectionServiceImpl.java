@@ -30,6 +30,11 @@ public class CollectionServiceImpl implements CollectionService {
     }
 
     @Override
+    public void whenDeleteArticle(Integer articleId) {
+        collectionMapper.deleteByArticleId(articleId);
+    }
+
+    @Override
     public Integer isCollected(Integer articleId, Integer userId) {
         return collectionMapper.isCollected(articleId, userId);
     }

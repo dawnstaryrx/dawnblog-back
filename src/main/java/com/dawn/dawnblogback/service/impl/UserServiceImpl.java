@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 
@@ -39,6 +40,36 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer id = (Integer) map.get("id");
         userMapper.updateAvatarUrl(avatarUrl, id);
+    }
+
+    @Override
+    public void haveFan(Integer id) {
+        userMapper.changeFan(id, 1);
+    }
+
+    @Override
+    public void haveFollow(Integer id) {
+        userMapper.changeFollow(id, 1);
+    }
+
+    @Override
+    public void changeUserRole(Integer id, Integer role) {
+        userMapper.changeUserRole(id, role);
+    }
+
+    @Override
+    public List<User> getUserList() {
+        return userMapper.getUserList();
+    }
+
+    @Override
+    public void removeFan(Integer id) {
+        userMapper.changeFan(id, -1);
+    }
+
+    @Override
+    public void removeFollow(Integer id) {
+        userMapper.changeFollow(id, -1);
     }
 
     @Override

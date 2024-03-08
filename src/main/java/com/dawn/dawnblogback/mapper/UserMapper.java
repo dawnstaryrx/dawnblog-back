@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * ClassName: UserMapper
@@ -31,4 +32,13 @@ public interface UserMapper {
     void updateAvatarUrl(String avatarUrl, Integer id);
     @Update("update user set password = #{newPwd} where id = #{id}")
     void updatePwd(String newPwd, Integer id);
+    @Update("update user set fan_num = fan_num + #{num} where id = #{id}")
+    void changeFan(Integer id , Integer num);
+    @Update("update user set follow_num = follow_num + #{num} where id = #{id}")
+    void changeFollow(Integer id, Integer num);
+    @Select("select * from user")
+    List<User> getUserList();
+
+    @Update("update user set role = #{role} where id = #{id}")
+    void changeUserRole(Integer id, Integer role);
 }
