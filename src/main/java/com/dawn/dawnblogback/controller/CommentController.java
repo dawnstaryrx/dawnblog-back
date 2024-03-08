@@ -35,4 +35,29 @@ public class CommentController {
         List<CommentDTO> list = commentService.getCommentByParentId(id);
         return Result.success(list);
     }
+
+    @GetMapping("/comment/likeNum")
+    public Result getLikeNum(@RequestParam Integer infoId){
+        Integer likeNum = commentService.getLikeNum(infoId);
+        return Result.success(likeNum);
+    }
+
+    @PutMapping("/comment/like")
+    public Result like(@RequestParam Integer infoId, Integer likeUserId){
+        commentService.like(infoId, likeUserId);
+        return Result.success();
+    }
+
+    @DeleteMapping("/comment/dislike")
+    public Result dislike(@RequestParam Integer infoId, Integer likeUserId){
+        commentService.dislike(infoId, likeUserId);
+        return Result.success();
+    }
+
+    // 判断当前用户是否已经点赞,1是 0否
+    @GetMapping("/comment/isLiked")
+    public Result isLiked(@RequestParam Integer infoId){
+        Integer isLiked = commentService.isLiked(infoId);
+        return Result.success(isLiked);
+    }
 }

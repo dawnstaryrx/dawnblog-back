@@ -5,6 +5,7 @@ import com.dawn.dawnblogback.pojo.dto.EmailDTO;
 import com.dawn.dawnblogback.pojo.Result;
 import com.dawn.dawnblogback.pojo.User;
 import com.dawn.dawnblogback.pojo.dto.UserDTO;
+import com.dawn.dawnblogback.service.ArticleService;
 import com.dawn.dawnblogback.service.EmailService;
 import com.dawn.dawnblogback.service.UserService;
 import com.dawn.dawnblogback.util.JwtUtil;
@@ -44,6 +45,8 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ArticleService articleService;
 
     /**
      * 找回密码发送验证码
@@ -267,5 +270,11 @@ public class UserController {
         ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
         operations.getOperations().delete(token);
         return Result.success();
+    }
+
+    @GetMapping("/article/num")
+    public Result getArticleNumByUserId(@RequestParam Integer id){
+        Integer num = articleService.getArticleNumByUserId(id);
+        return Result.success(num);
     }
 }

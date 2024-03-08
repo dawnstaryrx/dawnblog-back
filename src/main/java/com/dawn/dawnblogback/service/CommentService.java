@@ -20,4 +20,13 @@ public interface CommentService {
     List<CommentDTO> getCommentByParentId(Integer id);
 
     void setChildren(CommentDTO commentDTO);
+
+
+    void like(Integer infoId, Integer likeUserId);
+
+    void dislike(Integer infoId, Integer likeUserId);
+
+    Integer getLikeNum(Integer infoId);
+
+    Integer isLiked(Integer infoId);
 }

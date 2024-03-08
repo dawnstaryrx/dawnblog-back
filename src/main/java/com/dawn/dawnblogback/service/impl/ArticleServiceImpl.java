@@ -33,7 +33,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public PageBean<Article> myList(Integer pageNum, Integer pageSize) {
+    public Integer getArticleNumByUserId(Integer id) {
+        return articleMapper.getArticleNumByUserId(id);
+    }
+
+    @Override
+    public PageBean<Article> myList(Integer pageNum, Integer pageSize, String state) {
         // 1. 创建PageBean对象
         PageBean<Article> pageBean = new PageBean<>();
         // 2. 开启分页查询 PageHelper
@@ -41,7 +46,7 @@ public class ArticleServiceImpl implements ArticleService {
         // 3. 调用mapper
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userId = (Integer) map.get("id");
-        List<Article> articles = articleMapper.myList(userId);
+        List<Article> articles = articleMapper.myList(userId, state);
         // page中提供了方法，可以获取PageHelper分页查询后，得到的总记录数和当前页数据
         Page<Article> p = (Page<Article>) articles;
         // 把数据填充到pageBean对象中

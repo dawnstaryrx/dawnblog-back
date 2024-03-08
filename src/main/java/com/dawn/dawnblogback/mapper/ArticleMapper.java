@@ -33,6 +33,8 @@ public interface ArticleMapper {
 //    List<Article> list(Integer userId, String categoryId, String state);
     List<Article> list(String categoryId, String state);
 
-    @Select("select * from article where author = #{userId}")
-    List<Article> myList(Integer userId);
+    List<Article> myList(Integer userId, String state);
+
+    @Select("select count(*) from article where author = #{id} and state != 0")
+    Integer getArticleNumByUserId(Integer id);
 }

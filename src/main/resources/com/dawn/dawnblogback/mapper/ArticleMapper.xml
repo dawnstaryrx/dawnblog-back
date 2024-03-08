@@ -15,5 +15,15 @@
         </where>
         order by create_time desc
     </select>
+    <select id="myList" resultType="com.dawn.dawnblogback.pojo.Article">
+        select * from article
+        <where>
+            author = #{userId}
+            <if test="state!=null">
+                and state = #{state}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
 
 </mapper>

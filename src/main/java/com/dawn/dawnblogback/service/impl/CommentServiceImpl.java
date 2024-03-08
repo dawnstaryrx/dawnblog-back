@@ -4,10 +4,12 @@ import com.dawn.dawnblogback.mapper.CommentMapper;
 import com.dawn.dawnblogback.pojo.Comment;
 import com.dawn.dawnblogback.pojo.dto.CommentDTO;
 import com.dawn.dawnblogback.service.CommentService;
+import com.dawn.dawnblogback.util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName: CommentServiceImpl
@@ -34,6 +36,33 @@ public class CommentServiceImpl implements CommentService {
         List<CommentDTO> rootComments = commentMapper.findByParentId(id);
         rootComments.forEach(this::setChildren);
         return rootComments;
+    }
+
+    @Override
+    public void like(Integer infoId, Integer likeUserId) {
+        commentMapper.like(infoId, likeUserId);
+    }
+
+    @Override
+    public Integer isLiked(Integer infoId) {
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
+        Integer isLiked = commentMapper.isLiked(infoId, userId);
+        if (isLiked > 0){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    @Override
+    public void dislike(Integer infoId, Integer likeUserId) {
+        commentMapper.dislike(infoId, likeUserId);
+    }
+
+    @Override
+    public Integer getLikeNum(Integer infoId) {
+        return commentMapper.getLikeNum(infoId);
     }
 
     @Override
