@@ -1,6 +1,7 @@
 package com.dawn.dawnblogback.mapper;
 
 import com.dawn.dawnblogback.pojo.Article;
+import com.dawn.dawnblogback.pojo.PageBean;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -30,11 +31,13 @@ public interface ArticleMapper {
     @Delete("delete from article where id = #{id}")
     void delete(Integer id);
 
-//    List<Article> list(Integer userId, String categoryId, String state);
     List<Article> list(String categoryId, String state);
 
     List<Article> myList(Integer userId, String state);
 
     @Select("select count(*) from article where author = #{id} and state != 0")
     Integer getArticleNumByUserId(Integer id);
+
+    @Select("select * from article where (title like concat('%', #{searchInfo}, '%') or content like concat('%', #{searchInfo}, '%'))  and state = #{state}")
+    List<Article> search(String searchInfo, String state);
 }

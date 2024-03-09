@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,6 +59,12 @@ public class ArticleController {
                                           @RequestParam(required = false) String categoryId,
                                           @RequestParam(required = false) String state){
         PageBean<Article> pageBean = articleService.list(pageNum, pageSize, categoryId, state);
+        return Result.success(pageBean);
+    }
+
+    @GetMapping("/search")
+    public Result<PageBean<Article>> search(Integer pageNum, Integer pageSize, String searchInfo, String state){
+        PageBean<Article> pageBean = articleService.search(pageNum, pageSize,searchInfo, state);
         return Result.success(pageBean);
     }
 

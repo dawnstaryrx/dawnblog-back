@@ -3,6 +3,8 @@ package com.dawn.dawnblogback.service;
 import com.dawn.dawnblogback.pojo.Article;
 import com.dawn.dawnblogback.pojo.PageBean;
 
+import java.util.List;
+
 /**
  * ClassName: ArticleService
  * Package: com.dawn.dawnblogback.service
@@ -26,4 +28,6 @@ public interface ArticleService {
     PageBean<Article> myList(Integer pageNum, Integer pageSize, String state, Integer userId);
 
     Integer getArticleNumByUserId(Integer id);
+
+    PageBean<Article> search(Integer pageNum, Integer pageSize, String searchInfo, String state);
 }

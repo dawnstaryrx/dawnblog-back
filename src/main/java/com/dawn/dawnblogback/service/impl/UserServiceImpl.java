@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateCoin(Integer userId, Integer reward) {
+        userMapper.updateCoin(userId, reward);
+    }
+
+    @Override
     public void changeUserRole(Integer id, Integer role) {
         userMapper.changeUserRole(id, role);
     }

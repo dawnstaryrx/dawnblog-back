@@ -41,4 +41,6 @@ public interface UserMapper {
 
     @Update("update user set role = #{role} where id = #{id}")
     void changeUserRole(Integer id, Integer role);
+    @Update("update user set coin = coin + #{reward} where id = #{userId}")
+    void updateCoin(Integer userId, Integer reward);
 }

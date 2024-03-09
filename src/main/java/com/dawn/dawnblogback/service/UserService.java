@@ -40,4 +40,6 @@ public interface UserService {
     List<User> getUserList();
 
     void changeUserRole(Integer id, Integer role);
+
+    void updateCoin(Integer userId, Integer reward);
 }
