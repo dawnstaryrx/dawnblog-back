@@ -8,6 +8,7 @@ import com.dawn.dawnblogback.util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -46,5 +47,11 @@ public class SignInServiceImpl implements SignInService {
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userId = (Integer) map.get("id");
         return signInMapper.getSignInByUserId(userId);
+    }
+
+    @Override
+    public List<SignIn> list() {
+        List<SignIn> list = signInMapper.list();
+        return list;
     }
 }

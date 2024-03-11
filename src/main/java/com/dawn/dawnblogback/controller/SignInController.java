@@ -61,6 +61,28 @@ public class SignInController {
             // 没有签过到
             for(int i = 1; i < 8;i++)
                 list.add(new SignInDTO(i, 0));
+        }else {
+            // 签过到
+            Integer continueDays = signIn.getContinueDays();
+            // 前6天 flag固定
+            if (continueDays <= 6){
+                for (int i = 1; i < 8; i++){
+                    if (i <= continueDays){
+                        list.add(new SignInDTO(i, 1));
+                    }else {
+                        list.add(new SignInDTO(i, 0));
+                    }
+                }
+            } else {
+                // 6天后签到天数随日期增加
+                for (int i = 5; i > -2; i--){
+                    if (i > -1){
+                        list.add(new SignInDTO(continueDays - i, 1));
+                    } else {
+                        list.add(new SignInDTO(continueDays - i, 0));
+                    }
+                }
+            }
         }
         return Result.success(list);
     }

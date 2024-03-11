@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 @Mapper
 public interface SignInMapper {
     @Select("select * from sign_in where user_id = #{userId}")
@@ -14,4 +16,6 @@ public interface SignInMapper {
     void add(Integer userId);
     @Update("update sign_in set continue_days = #{continueDays}, update_time = now() where id = #{id}")
     void update(SignIn signIn);
+    @Select("select * from sign_in")
+    List<SignIn> list();
 }
