@@ -25,7 +25,6 @@ public class Article {
     private String content;
     private Integer categoryId;
     private Integer weight;
-    private Integer like;
     private Integer state;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;

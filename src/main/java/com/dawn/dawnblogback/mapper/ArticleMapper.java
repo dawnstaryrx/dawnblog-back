@@ -38,6 +38,7 @@ public interface ArticleMapper {
     @Select("select count(*) from article where author = #{id} and state != 0")
     Integer getArticleNumByUserId(Integer id);
 
-    @Select("select * from article where (title like concat('%', #{searchInfo}, '%') or content like concat('%', #{searchInfo}, '%'))  and state = #{state}")
+    @Select("select * from article where (title like concat('%', #{searchInfo}, '%') or content like concat('%', #{searchInfo}, '%') or author like concat('%', #{searchInfo}, '%'))  and state = #{state}")
     List<Article> search(String searchInfo, String state);
+
 }

@@ -11,7 +11,9 @@ public interface SignInService {
 
     void update(SignIn signIn);
 
-    void getReward();
+    Integer getReward();
 
     List<SignIn> list();
+
+    Integer getContinueDays();
 }

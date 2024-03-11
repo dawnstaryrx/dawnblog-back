@@ -1,5 +1,6 @@
 package com.dawn.dawnblogback.service.impl;
 
+import com.dawn.dawnblogback.mapper.ArticleMapper;
 import com.dawn.dawnblogback.mapper.CommentMapper;
 import com.dawn.dawnblogback.pojo.Comment;
 import com.dawn.dawnblogback.pojo.dto.CommentDTO;
@@ -22,6 +23,8 @@ import java.util.Map;
  */
 @Service
 public class CommentServiceImpl implements CommentService {
+    @Autowired
+    private ArticleMapper articleMapper;
     @Override
     public void setChildren(CommentDTO commentDTO) {
         List<CommentDTO> children = commentMapper.findByParentId(commentDTO.getId());

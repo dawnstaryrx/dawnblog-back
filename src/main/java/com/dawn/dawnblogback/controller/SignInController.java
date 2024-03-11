@@ -21,7 +21,7 @@ public class SignInController {
     private SignInService signInService;
 
     @PostMapping("/signin")
-    public Result signIn(){
+    public Result<Integer> signIn(){
         // 查询有没有用户记录
         SignIn signIn = signInService.isSignedIn();
         // 如果没有，新增
@@ -47,11 +47,11 @@ public class SignInController {
             signInService.update(signIn);
         }
         // 获取奖励
-        signInService.getReward();
-        return Result.success();
+        Integer num = signInService.getReward();
+        return Result.success(num);
     }
 
-    // TODO 签到结果
+    // 签到结果
     @GetMapping("/signin")
     public Result<List<SignInDTO>> getSignInList(){
         List<SignInDTO> list = new ArrayList<>(7);
@@ -85,5 +85,32 @@ public class SignInController {
             }
         }
         return Result.success(list);
+    }
+
+    // 当前用户签到数据
+    @GetMapping("/signin/continue")
+    public Integer getContinueDays(){
+        return signInService.getContinueDays();
+    }
+
+
+    // 今天有没有签到
+    @GetMapping("/signin/today")
+    public Result<Integer> isTodaySignIn(){
+        SignIn signIn = signInService.isSignedIn();
+        // 如果没有，新增
+        if (signIn == null){
+            return Result.success(0);
+        }else {// 如果有，修改
+            // 判断今天是否签到，最后签到日期与当前日期是否超过一天
+            LocalDate updateTime = signIn.getUpdateTime().toLocalDate();
+            LocalDate currTime = LocalDate.now();
+            long daysDiff = ChronoUnit.DAYS.between(updateTime, currTime);
+            if (daysDiff <= 0) {
+                // 今天已经签到过
+                return Result.success(1);
+            }
+            return Result.success(0);
+        }
     }
 }

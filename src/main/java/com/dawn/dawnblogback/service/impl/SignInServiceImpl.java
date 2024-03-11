@@ -19,15 +19,27 @@ public class SignInServiceImpl implements SignInService {
     private UserService userService;
 
     @Override
-    public void getReward() {
+    public Integer getContinueDays() {
         Map<String, Object> map = ThreadLocalUtil.get();
         Integer userId = (Integer) map.get("id");
-        // TODO 获取奖励
+        SignIn signIn = isSignedIn();
+        if (signIn == null)
+            return 0;
+        Integer num =  signInMapper.getSignInByUserId(userId).getContinueDays();
+        return num;
+    }
+
+    @Override
+    public Integer getReward() {
+        Map<String, Object> map = ThreadLocalUtil.get();
+        Integer userId = (Integer) map.get("id");
+        // 获取奖励
         SignIn signIn = isSignedIn();
         Integer reward = signIn.getContinueDays();
         if (reward > 7)
             reward = 7;
         userService.updateCoin(userId, reward);
+        return reward;
     }
 
     @Override
